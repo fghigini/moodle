@@ -128,8 +128,7 @@ class course_completion_form extends moodleform {
         }
 
         // Get applicable courses (prerequisites).
-        $hasselectablecourses = core_course_category::search_courses(['onlywithcompletion' => true], ['limit' => 2]);
-        unset($hasselectablecourses[$course->id]);
+        $hasselectablecourses = $DB->record_exists_sql("SELECT id from {course} where ENABLECOMPLETION = ? and id != ?", array(1, $course->id));
         if ($hasselectablecourses) {
             // Show multiselect box.
             $mform->addElement('course', 'criteria_course', get_string('coursesavailable', 'completion'),
