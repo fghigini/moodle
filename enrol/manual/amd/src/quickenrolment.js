@@ -153,11 +153,12 @@ const submitFormAjax = (dynamicTable, modal) => {
     modal.destroy();
 
     jQuery.ajax(
-        `${Config.wwwroot}/enrol/manual/ajax.php?${form.serialize()}`,
+        `${Config.wwwroot}/enrol/manual/ajax.php`,
         {
-            type: 'GET',
+            type: 'POST',
             processData: false,
-            contentType: "application/json",
+            data: form.serialize(),
+            contentType: "application/x-www-form-urlencoded",
         }
     )
     .then(response => {
